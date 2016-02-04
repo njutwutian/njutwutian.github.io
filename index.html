@@ -80,7 +80,7 @@
                     var url = GetLanguagePackageUrl(language);
                     LoadLanguageScript(url);
 
-                    var key = "languagePackage_" + language.replace('-', '_');
+                    var key = "languagePackage_zh_CN"; //+ language.replace('-', '_');
                     return window[key];
                 }
             }
@@ -207,7 +207,7 @@
              *  @type {obejct} add the object into window object 
              */
             window.GlobalLanguageSetting = window.Lang = GlobalLanguageSetting;
-            //window.resxmodel = Lang.fun.model();
+            window.resxmodel = Lang.fun.model();
         })(window);
         //Lang.init();
         var njutwutian = "hello";
@@ -227,7 +227,7 @@
     <label data-resx="njutwutian">njutwutian</label>
 </body>
     <script type="text/javascript">
-        alert("=====");
+        alert(resxmodel.njutwutian);
         Lang.init();
     </script>
 </html>
