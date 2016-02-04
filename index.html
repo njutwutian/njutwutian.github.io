@@ -207,9 +207,9 @@
              *  @type {obejct} add the object into window object 
              */
             window.GlobalLanguageSetting = window.Lang = GlobalLanguageSetting;
-            window.resxmodel = Lang.fun.model();
+            //window.resxmodel = Lang.fun.model();
         })(window);
-        Lang.init();
+        //Lang.init();
         var njutwutian = "hello";
         alert(window["njutwutian"] + GetLocalLanguage());
 
@@ -226,4 +226,8 @@
 <body>
     <label data-resx>njutwutian</label>
 </body>
+    <script type="text/javascript">
+        alert("=====");
+        Lang.init();
+    </script>
 </html>
