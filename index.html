@@ -1,8 +1,215 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Fly bird</title>
     <script type="text/javascript">
+        /*=============Language Details=================*/
+        languagePackage_en_US =
+                //en-us
+                {
+                    "njutwutian":"吴田"
+                };
+        (function (window, undefined) {
+            /** 
+             *  @type {Array} use to store url which had been load
+             */
+            var cache = new Array();
+
+            /** 
+             *  @type {Array} use to store all child nodes
+             */
+            var allChildArray = new Array();
+
+            /** 
+             *  @description Constructor function
+             */
+            GlobalLanguageSetting = function () {
+
+            }
+
+            /** 
+             *  @description global language initialization
+             *  @param {string} user language setting, Example: 'en-US' 
+             *  @param {string} selector Which was been used in JavaScript document.querySelectorAll, Example: 'div[data-resx]' 
+             */
+            GlobalLanguageSetting.init = function (language, element) {
+                return new GlobalLanguageSetting.fun.initinelement(language, element);
+            }
+
+            /** 
+             *  @description function in GlobalLanguageSetting 
+             */
+            GlobalLanguageSetting.fun = {
+                /** 
+                 *  @description global language initialization with default object
+                 *  @param {string} user language setting, Example: 'en-US' 
+                 *  @param {object} doucument node Which was need to set the language under the node tree
+                 */
+                initinobj: function (language, targetobj) {
+                    var url = GetLanguagePackageUrl(language);
+                    if (cache[url] == 1) {
+                        return SetLanguageByObj(language, targetobj);
+                    }
+                    LoadLanguageScript(url);
+                    return SetLanguageByObj(language, targetobj);
+                },
+                /** 
+                 *  @description global language initialization with selector
+                 *  @param {string} user language setting, Example: 'en-US' 
+                 *  @param {string} selector Which was been used in JavaScript document.querySelectorAll, Example: 'div[data-resx]' 
+                 */
+                initinelement: function (language, element) {
+                    var url = GetLanguagePackageUrl(language);
+                    if (cache[url] == 1) {
+                        return SetLanguageBySelector(language, element);
+                    }
+                    //LoadLanguageScript(url);
+                    return SetLanguageBySelector(language, element);
+                },
+                /** 
+                 *  @description get local language return string like 'en-US'
+                 */
+                getcurrentlanguage: function () {
+                    return GetLocalLanguage();
+                },
+                /** 
+                 *  @description get local language model which include global language package
+                 */
+                model: function () {
+                    var language = GetLocalLanguage();
+                    var url = GetLanguagePackageUrl(language);
+                    LoadLanguageScript(url);
+
+                    var key = "languagePackage_" + language.replace('-', '_');
+                    return window[key];
+                }
+            }
+            /** 
+             *  @description get local language return string like 'en-US'
+             */
+            function GetLocalLanguage() {
+                //get language
+                currentLang = navigator.language;
+                if (!currentLang) {
+                    currentLang = navigator.browserLanguage;
+                }
+                return currentLang;
+            }
+            /** 
+             *  @description get languagepackage script url return string like '/Scripts/en-US.js'
+             *  @param {string} user language setting, Example: 'en-US' 
+             */
+            function GetLanguagePackageUrl(language) {
+                if (typeof language !== "string" || language === "") {
+                    language = GetLocalLanguage();
+                }
+                return "/Scripts/" + language + ".js";
+            }
+            /** 
+             *  @description global language initialization with selector
+             *  @param {string} user language setting, Example: 'en-US' 
+             *  @param {string} selector Which was been used in JavaScript document.querySelectorAll, Example: 'div[data-resx]' 
+             */
+            function SetLanguageBySelector(language, selector) {
+                if (typeof language !== "string" || language === "") {
+                    language = 'en-US';
+                }
+                if (typeof selector !== "string" || selector === "") {
+                    selector = "[data-resx]";
+                }
+                var allnode = document.querySelectorAll(selector);
+                var key = "languagePackage_" + language.replace('-', '_');
+                for (i = 0; i < allnode.length; i++) {
+                    //.getAttribute("data-resx")
+                    var nodeElement = allnode[i];
+                    nodeElement.innerHTML = window[key][nodeElement.getAttribute("data-resx")];
+                }
+                return true;
+            }
+            /** 
+             *  @description global language initialization with default object
+             *  @param {string} user language setting, Example: 'en-US' 
+             *  @param {object} doucument node Which was need to set the language under the node tree
+             */
+            function SetLanguageByObj(language, targetobj) {
+                if (typeof language !== "string" || language === "") {
+                    language = 'en-US';
+                }
+                var execobj;
+                var allnode;
+                if (typeof targetobj !== "object" || targetobj === null) {
+                    allnode = document.querySelectorAll("[data-resx]");
+                } else {
+                    allChildArray = new Array();
+                    allnode = getAllChildByObj(targetobj);
+                }
+                var key = "languagePackage_" + language.replace('-', '_');
+                for (i = 0; i < allnode.length; i++) {
+                    //.getAttribute("data-resx")
+                    var nodeElement = allnode[i];
+                    if (typeof (nodeElement) != "undefined" && nodeElement.attributes != null && nodeElement.hasAttribute("data-resx")) {
+                        nodeElement.innerHTML = window[key][nodeElement.getAttribute("data-resx")];
+                    }
+                }
+                return true;
+            }
+            /** 
+             *  @description load languagepackage script url 
+             *  @param {string} languagepackage script url, Example: '/Scripts/en-US.js' 
+             */
+            function LoadLanguageScript(url) {
+                var script = document.createElement("script")
+                script.type = "text/javascript";
+                if (script.readyState) { //IE 
+                    script.onreadystatechange = function () {
+                        if (script.readyState == "loaded" ||
+                        script.readyState == "complete") {
+                            script.onreadystatechange = null;
+
+                        }
+                    };
+                } else { //Others: Firefox, Safari, Chrome, and Opera 
+                    script.onload = function () {
+
+                    };
+                }
+                script.src = url;
+                cache[url] = 1;
+                document.head.appendChild(script);
+                return true;
+            }
+            /** 
+             *  @description get all childnodes under the target object 
+             *  @param {string} the target object 
+             */
+            function getAllChildByObj(targetObj) {
+                if (typeof targetObj == "undefined") {
+                    return new Array();
+                }
+                if (typeof targetObj.childNodes == "undefined") {
+                    if (typeof targetObj != "undefined" && targetObj.attributes != null && targetObj.hasAttribute("data-resx")) {
+                        return allChildArray.push(targetObj);
+                    } else {
+                        return new Array();
+                    }
+                }
+                else {
+                    if (typeof targetObj != "undefined" && targetObj.attributes != null && targetObj.hasAttribute("data-resx")) {
+                        return allChildArray.push(targetObj);
+                    }
+                    for (var i = 0; i < targetObj.childNodes.length; i++) {
+                        getAllChildByObj(targetObj.childNodes[i]);
+                    }
+                    return allChildArray;
+                }
+            }
+            /** 
+             *  @type {obejct} add the object into window object 
+             */
+            window.GlobalLanguageSetting = window.Lang = GlobalLanguageSetting;
+            window.resxmodel = Lang.fun.model();
+        })(window);
+        Lang.init();
         var njutwutian = "hello";
         alert(window["njutwutian"] + GetLocalLanguage());
 
@@ -16,5 +223,7 @@
         }
     </script>
 </head>
-<body></body>
+<body>
+    <label data-resx>njutwutian</label>
+</body>
 </html>
