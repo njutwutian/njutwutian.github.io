@@ -4,7 +4,16 @@
     <title>Fly bird</title>
     <script type="text/javascript">
         var njutwutian = "hello";
-        alert(window["njutwutian1"]+navigator.language);
+        alert(window["njutwutian"] + GetLocalLanguage());
+
+        function GetLocalLanguage() {
+            //get language
+            currentLang = navigator.language;
+            if (!currentLang) {
+                currentLang = navigator.browserLanguage;
+            }
+            return currentLang;
+        }
     </script>
 </head>
 <body></body>
