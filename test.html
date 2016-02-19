@@ -193,8 +193,20 @@
 
             return new animate();
         })(window);
+        //function hello() {
+        //    alert("hello");
+        //    window.setTimeout(hello, 1000);
+        //}
+        //hello();
+    </script>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="cas" width="1600" height="485">抱歉您的浏览器不支持canvas</canvas>
+    </div>
+    <script type="text/javascript">
         var canvas = document.getElementById("cas");
-		var	ctx = canvas.getContext("2d");
+        var ctx = canvas.getContext("2d");
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -222,17 +234,6 @@
         };
         stage.init();
         stage.loop();
-
-        //function hello() {
-        //    alert("hello");
-        //    window.setTimeout(hello, 1000);
-        //}
-        //hello();
     </script>
-</head>
-<body>
-    <div id="gameContainer">
-        <canvas id="cas" width="1600" height="485">抱歉您的浏览器不支持canvas</canvas>
-    </div>
 </body>
 </html>
