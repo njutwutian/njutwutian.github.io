@@ -5,11 +5,20 @@
 <body>
     <canvas id="mycanvas">
     </canvas>
+    <canvas id="mycanvas1"></canvas>
     <script type="text/javascript">
         var canvasmodel = document.getElementById("mycanvas");
         var canvashelp = canvasmodel.getContext("2d");
         canvashelp.fillStyle = "#FF0000";
-        canvashelp.fillRect(0,0,150,75);
+        canvashelp.fillRect(0, 0, 150, 75);
+
+        var canvasmodel1 = document.getElementById("mycanvas1");
+        var canvashelp1 = canvasmodel1.getContext("2d");
+        canvashelp1.fillStyle = "orange";
+        canvashelp1.beginPath();
+        canvashelp1.arc(70, 18, 15, 0, Math.PI * 2, true);
+        canvashelp1.closePath();
+        canvashelp1.fill();
     </script>
 </body>
 </html>
