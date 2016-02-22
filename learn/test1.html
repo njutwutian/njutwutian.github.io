@@ -6,6 +6,7 @@
     <canvas id="mycanvas">
     </canvas>
     <canvas id="mycanvas1" width="400" height="400" style="background-color:#E1E1FF"></canvas>
+    <canvas id="mycanvas2"></canvas>
     <script type="text/javascript">
         var canvasmodel = document.getElementById("mycanvas");
         var canvashelp = canvasmodel.getContext("2d");
@@ -49,6 +50,24 @@
         canvashelp1.arc(200, 275, 10, 0, 2 * Math.PI, false);
         canvashelp1.closePath();
         canvashelp1.fill();
+
+        var canvasmodel2 = document.getElementById("mycanvas2");
+        var canvashelp2 = canvasmodel2.getContext("2d");
+        canvashelp2.fillStyle = "black";
+        canvashelp2.beginPath();
+        canvashelp2.arc(80, 10, Math.sqrt(9600), 0.25 * Math.PI, 0.75 * Math.PI, false);
+        canvashelp2.closePath();
+        canvashelp2.fill();
+
+        canvashelp2.moveTo(80, 10);
+        canvashelp2.lineTo(150, 80);
+        canvashelp2.lineTo(10, 80);
+        canvashelp2.lineTo(80, 10);
+        canvashelp2.closePath();
+        canvashelp1.fillStyle = "black";
+        canvashelp2.fill();
+
+
     </script>
 </body>
 </html>
