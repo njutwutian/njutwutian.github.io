@@ -5,7 +5,7 @@
 <body>
     <canvas id="mycanvas">
     </canvas>
-    <canvas id="mycanvas1"></canvas>
+    <canvas id="mycanvas1" width="400" height="400" style="background-color:#E1E1FF"></canvas>
     <script type="text/javascript">
         var canvasmodel = document.getElementById("mycanvas");
         var canvashelp = canvasmodel.getContext("2d");
@@ -14,9 +14,39 @@
 
         var canvasmodel1 = document.getElementById("mycanvas1");
         var canvashelp1 = canvasmodel1.getContext("2d");
-        canvashelp1.fillStyle = "orange";
+        canvashelp1.fillStyle = "white";
         canvashelp1.beginPath();
-        canvashelp1.arc(70, 18, 15, 0, Math.PI * 2, true);
+        canvashelp1.arc(200, 200, 150, 1.5*Math.PI, 0.5*Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 200, 150, 0.5 * Math.PI, 1.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "white";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 125, 75, 0.5 * Math.PI, 1.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 275, 75, 1.5 * Math.PI, 0.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 125, 10, 0, 2 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "white";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 275, 10, 0, 2 * Math.PI, false);
         canvashelp1.closePath();
         canvashelp1.fill();
     </script>
