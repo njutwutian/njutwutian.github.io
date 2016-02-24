@@ -3,8 +3,13 @@
     <title>learn canvas</title>
 </head>
 <body>
+	<label id="test"></label>
 	<script type="text/javascript">
-		alert((new Date()).getTime());
+		var str = "";
+		str += (new Date()).getTime() + "-line-";
+		document.getElementById("test").innerText = str;
+		
+		//alert((new Date()).getTime());
 	</script>
 </body>
 </html>
