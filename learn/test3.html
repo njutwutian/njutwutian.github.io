@@ -3,20 +3,22 @@
     <title>learn test</title>
 </head>
 <body>
-    <button onmousedown="mousedown()" onmouseup="">add</button>
+    <div style="width:200px;height:200px" onmousedown="mousedown()" onmouseup="mouseup()">add</div>
     <br/>
     <label id="testlabel"></label>
     <script type="text/javascript">
+        var numb;
         function mousedown() {
-            setInterval(settime(),1000);
+            numb = setInterval('settime()', 100);
         }
 
         function settime() {
-            document.getElementById("testlabel").innerHTML = (new Date()).getTime();
+            document.getElementById("testlabel").innerHTML = (new Date()).getSeconds();
         }
-
-        function mouseup() {   
-            document.getElementById("testlabel").innerHTML = "null";
+        //setInterval('settime()', 1000);
+        function mouseup() {
+            clearInterval(numb);
+            document.getElementById("testlabel").innerHTML = "0";
         }
 
     </script>
