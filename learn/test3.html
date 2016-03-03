@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>learn test</title>
+</head>
+<body>
+    <button onmousedown="mousedown()" onmouseup="">add</button>
+    <br/>
+    <label id="testlabel"></label>
+    <script type="text/javascript">
+        function mousedown() {
+            document.getElementById("testlabel").innerHTML = (new Date()).getTime();
+        }
+
+        function mouseup() {   
+            document.getElementById("testlabel").innerHTML = "null";
+        }
+
+    </script>
+</body>
+</html>
