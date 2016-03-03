@@ -8,6 +8,10 @@
     <label id="testlabel"></label>
     <script type="text/javascript">
         function mousedown() {
+            setInterval(settime(),1000);
+        }
+
+        function settime() {
             document.getElementById("testlabel").innerHTML = (new Date()).getTime();
         }
 
