@@ -1,0 +1,100 @@
+<html>
+<head>
+    <title>learn canvas</title>
+</head>
+<body>
+    <canvas id="mycanvas">
+    </canvas>
+    <canvas id="mycanvas1" width="400" height="400" style="background-color:#E1E1FF"></canvas>
+    <canvas id="mycanvas2"></canvas>
+    <canvas id="mycanvas3"></canvas>
+    <canvas id="mycanvas4" width="400" height="400"></canvas>
+    <script type="text/javascript">
+        var canvasmodel = document.getElementById("mycanvas");
+        var canvashelp = canvasmodel.getContext("2d");
+        canvashelp.strokeStyle = "#FF0000";
+        canvashelp.fillRect(0, 0, 150, 75);
+        canvashelp.clearRect(30,0,120,75);
+
+        var canvasmodel1 = document.getElementById("mycanvas1");
+        var canvashelp1 = canvasmodel1.getContext("2d");
+        canvashelp1.fillStyle = "white";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 200, 150, 1.5*Math.PI, 0.5*Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 200, 150, 0.5 * Math.PI, 1.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "white";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 125, 75, 0.5 * Math.PI, 1.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 275, 75, 1.5 * Math.PI, 0.5 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "black";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 125, 10, 0, 2 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        canvashelp1.fillStyle = "white";
+        canvashelp1.beginPath();
+        canvashelp1.arc(200, 275, 10, 0, 2 * Math.PI, false);
+        canvashelp1.closePath();
+        canvashelp1.fill();
+
+        var canvasmodel2 = document.getElementById("mycanvas2");
+        var canvashelp2 = canvasmodel2.getContext("2d");
+        canvashelp2.fillStyle = "blue";
+        canvashelp2.beginPath();
+        canvashelp2.arc(80, 10, 97.98, 0.25 * Math.PI, 0.75 * Math.PI, false);
+        canvashelp2.closePath();
+        canvashelp2.fill();
+
+        canvashelp2.moveTo(80, 10);
+        canvashelp2.lineTo(150, 80);
+        canvashelp2.lineTo(10, 80);
+        canvashelp2.lineTo(80, 10);
+        canvashelp2.closePath();
+        //canvashelp1.fillStyle = "blue";
+        canvashelp2.fill();
+
+        //var canvasmodel3 = document.getElementById("mycanvas3");
+        //var cnavashelp3 = canvasmodel3.getContext("2d");
+        //ctx.sector(100, 100, 50, 0, Math.PI *2).fill();
+        //var deg = Math.PI / 180;
+        //canvashelp3.sector(100, 100, 80, 30 * deg, 111 * deg).fill();
+        //canvashelp3.fillStyle = "red";
+
+        var canvasmodel4 = document.getElementById("mycanvas4");
+        var canvashelp4 = canvasmodel4.getContext("2d");
+        canvashelp4.beginPath();
+        canvashelp4.arc(100, 150, 50, 0, Math.PI / 2, false);
+        canvashelp4.fillStyle = 'red';
+        canvashelp4.fill();
+        canvashelp4.strokeStyle = 'red';
+        canvashelp4.closePath();
+        canvashelp4.stroke();
+
+        canvashelp4.beginPath();
+        canvashelp4.arc(300, 150, 50, 0, Math.PI / 2, false);
+        canvashelp4.fillStyle = 'red';
+        canvashelp4.fill();
+        canvashelp4.strokeStyle = 'red';
+        canvashelp4.closePath();
+        canvashelp4.stroke();
+
+    </script>
+</body>
+</html>

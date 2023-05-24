@@ -1,0 +1,247 @@
+<html>
+<head>
+    <title>九鼎韩妆运单查询</title>
+    <script src="http://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function getInfo() {
+            $("#childtable tbody").html("");
+            $("#childstatus").hide();
+            $("#childmsg").show();
+            $("#childmsg").text("正在查询");
+            var childid = $("#childid").val();
+            var childtype = $("#childtype").val();
+            var urlstr = 'trackmethod.php?id=' + childid + '&type=' + childtype;
+            $.ajax({
+                url: urlstr,
+                type: 'GET',
+                dataType: 'json',
+                success: function (result) {
+                    //alert(JSON.stringify(result));
+                    if (result.message == 'ok') {
+                        $("#childmsg").hide();
+                        var entity = result.data;
+                        for (var i = 0; i < entity.length; i++) {
+                            var tdstr = "<tr><td>" + entity[i].time + "</td>" + "<td>" + entity[i].context + "</td></tr>";
+                            $("#childtable tbody").append(tdstr);
+                        }
+                        $("#childstatus").show();
+                    } else {
+                        $("#childmsg").text("未查询到相关运单");
+                    }
+                }
+            });
+        }
+        function getOrder() {
+            $("#searchtable tbody").html("");
+            $("#searchdiv").hide();
+            $("#msg").show();
+            $("#msg").text("正在查询");
+            $("#childstatus").hide();
+            var number = $("#inputnumber").val();
+            var requrl = 'getorder.php?id=' + number;
+            $.ajax({
+                url: requrl,
+                type: 'GET',
+                dataType: 'json',
+                success: function (result) {
+                    //alert(JSON.stringify(result));
+                    if (result.length > 0) {
+                        $("#msg").hide();
+                        var serialid = "";
+                        var childserialid = "";
+                        var childtype = "";
+                        var haschildflag = false;
+                        for (var i = 0; i < result.length; i++) {
+                            var tdstr = "<tr><td>" + result[i].createtime + "</td>" + "<td>" + result[i].statusdesc + "</td></tr>";
+                            $("#searchtable tbody").append(tdstr);
+                            serialid = result[i].serialid;
+                            if (result[i].mailstatus == 1) {
+                                haschildflag = true;
+                                childserialid = result[i].inserialid;
+                                childtype = result[i].mailtype;
+                            }
+                        }
+                        $("#serialidlbl").text(serialid);
+                        if (haschildflag) {
+                            $("#childdiv").show()
+                            $("#serialidchildlbl").text(childserialid);
+                            $("#childid").val(childserialid);
+                            $("#childtype").val(childtype)
+                        }
+                        $("#searchdiv").show();
+                    } else {
+                        $("#msg").text("未查询到相关运单");
+                    }
+                }
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            background-image: url('http://www.sf-express.com/resources/images/background.jpg');
+            background-position: 50% 25%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .color_block_Fa {
+            width: 50px;
+            height: 26px;
+            float: left;
+            margin-left: 40%;
+            background-color: #FE8F00;
+            color: #ffffff;
+            font-size: 12px;
+            text-align: center;
+            margin-right: 15px;
+            line-height: 25px;
+        }
+
+        .color_block_Violet {
+            width: 50px;
+            height: 26px;
+            float: left;
+            margin-left: 40%;
+            background-color: #012060;
+            color: #ffffff;
+            font-size: 12px;
+            text-align: center;
+            margin-right: 15px;
+            line-height: 25px;
+        }
+
+        .PageTbar {
+            height: 30px;
+            border-top: 4px solid #012060;
+            background-color: #ECECEC;
+            width: 100%;
+            line-height: 30px;
+            font-size: 14px;
+        }
+
+        .titlediv {
+            width: 956px;
+            height: 60px;
+            background-color: #969fb5;
+            float: left;
+            position: relative;
+        }
+
+        .titleh1 {
+            margin: 0px;
+            padding: 0px 0px 0px 158px;
+            font-family: Microsoft YaHei;
+            color: #000000;
+            font-size: 22px;
+            line-height: 60px;
+            vertical-align: middle;
+            text-indent: 20px;
+            display: block;
+        }
+
+        .contentdiv {
+            width: 958px;
+            border: 1px solid #ECECEC;
+            float: left;
+            margin-top: 10px;
+        }
+
+        .wrapper {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        .supposing {
+            display: block;
+            margin: 0px;
+            padding: 10px 0px 0px 178px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="contentdiv">
+            <div class="titlediv">
+                <h1 class="titleh1">巴拉巴拉巴拉</h1>
+            </div>
+            <div class="form-inline" style="text-align:center;margin-top:100px">
+                <div class="form-group">
+                    <label for="inputnumber">运单号</label>
+                    <input class="form-control" type="text" id="inputnumber" placeholder="订单号">
+                    <button class="btn btn-primary" onclick="getOrder()">查询运单</button>
+                </div>
+                <div id="content" style="text-align:center;margin-top:20px;">
+                    <div id="msg"></div>
+                    <div id="searchdiv" style="">
+                        <div class="PageTbar">
+                            <div class="color_block_Fa">
+                                <label>单号：</label>
+                            </div>
+                            <div style="text-align:left">
+                                <label id="serialidlbl"></label>
+                            </div>
+                        </div>
+                        <table id="searchtable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td width="200px">时间</td>
+                                    <td>快递状态</td>
+                                <tr>
+                            </thead>
+                            <tbody>
+                            <tr><td>2016-03-30 14:43:00</td><td>到达国内，使用韵达快递转运</td></tr><tr><td>2016-03-30 13:43:27</td><td>香港到深圳</td></tr><tr><td>2016-03-30 12:43:17</td><td>韩国到香港</td></tr>
+                            </tbody>
+                        </table>
+                        <div id="childdiv" style="display:none">
+                            <div class="PageTbar">
+                                <div class="color_block_Violet">
+                                    <label>子单号：</label>
+                                </div>
+                                <div style="text-align:left">
+                                    <a id="serialidchildlbl" onclick="getInfo()" style="cursor:pointer"></a>
+                                    <input type="hidden" id="childid" /><input type="hidden" id="childtype" />
+                                </div>
+                            </div>
+                            <div id="childmsg"></div>
+                            <div id="childstatus" style="display:none">
+                                <table id="childtable" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td width="200px">时间</td>
+                                            <td>快递状态</td>
+                                        <tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="titlediv" style="margin-top:100px">
+                <h1 class="titleh1">巴拉巴拉巴拉</h1>
+            </div>
+            <div style="margin-top:180px">
+                <ul>
+                    <li>
+                        （1）用户在手机应用app内或移动网站内打开“我的订单”时，程序自动调用API并显示对应的物流信息，用户无需再进行如选择快递公司、输入单号等操作。
+                    </li>
+                    <li>
+                        （2）在微信公众号中添加“查快递”的菜单，用户点击后便能查询快递单号信息。
+                    </li>
+                    <li>
+                        （3）在微信公众号中，用户输入快递单号后，程序猜测出对应的快递公司、进行查询并在微信中显示结果链接，用户点击后即可查看对应的物流信息。
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
